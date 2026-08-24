@@ -3,21 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Near Market - South Dinajpur</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
-
 body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#f5f7fb;
   color:#172033
 }
-
 header{
   background:#fff;
   padding:15px;
@@ -26,26 +23,22 @@ header{
   z-index:20;
   box-shadow:0 2px 10px #0001
 }
-
 .top{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px
 }
-
 .logo{
   font-size:25px;
   font-weight:800;
   color:#1769e0
 }
-
 .location{
   font-size:12px;
   color:#777;
   margin-top:3px
 }
-
 button{
   border:0;
   border-radius:10px;
@@ -53,17 +46,18 @@ button{
   cursor:pointer;
   font-size:14px
 }
-
 .primary{
   background:#1769e0;
   color:#fff
 }
-
 .secondary{
   background:#eef3ff;
   color:#1769e0
 }
-
+.danger{
+  background:#ffecec;
+  color:#c62828
+}
 .search{
   width:100%;
   margin-top:12px;
@@ -72,13 +66,11 @@ button{
   border-radius:10px;
   font-size:15px
 }
-
 main{
-  max-width:1000px;
+  max-width:1050px;
   margin:auto;
   padding:16px
 }
-
 .hero{
   background:#1769e0;
   color:white;
@@ -86,30 +78,23 @@ main{
   border-radius:20px;
   margin-bottom:20px
 }
-
-.hero h1{
-  margin:0 0 8px
-}
-
+.hero h1{margin:0 0 8px}
 .grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px
 }
-
 .cat{
   background:white;
   box-shadow:0 2px 8px #0001;
   padding:15px 5px;
   text-align:center
 }
-
 .cat span{
   display:block;
   font-size:27px;
   margin-bottom:6px
 }
-
 .card{
   background:white;
   padding:18px;
@@ -117,7 +102,19 @@ main{
   margin-top:18px;
   box-shadow:0 2px 8px #0001
 }
-
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  margin:7px 0;
+  border:1px solid #ddd;
+  border-radius:9px;
+  font-size:15px;
+  font-family:inherit
+}
+textarea{
+  min-height:90px;
+  resize:vertical
+}
 .modal{
   display:none;
   position:fixed;
@@ -126,40 +123,26 @@ main{
   z-index:100;
   align-items:center;
   justify-content:center;
-  padding:15px
+  padding:15px;
+  overflow:auto
 }
-
 .box{
   width:100%;
-  max-width:420px;
+  max-width:470px;
   background:white;
   border-radius:18px;
-  padding:20px
+  padding:20px;
+  margin:auto
 }
-
-input{
-  width:100%;
-  padding:12px;
-  margin:7px 0;
-  border:1px solid #ddd;
-  border-radius:9px;
-  font-size:15px
-}
-
 .close{
   float:right;
   background:#eee
 }
-
-.hidden{
-  display:none
-}
-
+.hidden{display:none!important}
 .message{
   margin-top:10px;
   font-size:14px
 }
-
 .status{
   padding:10px;
   border-radius:10px;
@@ -167,37 +150,70 @@ input{
   margin-top:10px;
   font-size:14px
 }
-
-.profile-actions{
+.actions{
   display:flex;
-  gap:10px;
+  gap:8px;
   flex-wrap:wrap;
   margin-top:10px
 }
-
 .listing{
-  border:1px solid #eee;
-  border-radius:12px;
+  background:#fff;
+  border:1px solid #e8e8e8;
+  border-radius:14px;
   padding:12px;
-  margin-top:10px
+  margin-top:12px
 }
-
+.product-img{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  border-radius:12px;
+  background:#f1f1f1
+}
+.price{
+  font-size:19px;
+  font-weight:700;
+  color:#1769e0;
+  margin-top:7px
+}
+.muted{
+  color:#777;
+  font-size:13px
+}
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  background:#eef3ff;
+  color:#1769e0;
+  border-radius:20px;
+  font-size:12px;
+  margin-top:5px
+}
+.row{
+  display:flex;
+  gap:10px
+}
+.row>*{flex:1}
+.cart-item{
+  border-bottom:1px solid #eee;
+  padding:10px 0
+}
+.cart-total{
+  font-size:20px;
+  font-weight:700;
+  margin-top:15px
+}
+.empty{
+  text-align:center;
+  padding:20px;
+  color:#777
+}
 @media(max-width:600px){
-  .grid{
-    grid-template-columns:repeat(4,1fr)
-  }
-
-  .cat{
-    font-size:11px
-  }
-
-  .cat span{
-    font-size:23px
-  }
-
-  .logo{
-    font-size:21px
-  }
+  .grid{grid-template-columns:repeat(4,1fr)}
+  .cat{font-size:11px}
+  .cat span{font-size:23px}
+  .logo{font-size:21px}
+  .row{display:block}
 }
 </style>
 </head>
@@ -205,21 +221,15 @@ input{
 <body>
 
 <header>
-
   <div class="top">
-
     <div>
       <div class="logo">Near Market</div>
       <div class="location">📍 Dakshin Dinajpur</div>
     </div>
 
-    <button
-      id="authButton"
-      class="primary"
-      onclick="openAuth()">
+    <button id="authButton" class="primary" onclick="openAuth()">
       Login
     </button>
-
   </div>
 
   <input
@@ -228,287 +238,388 @@ input{
     type="search"
     placeholder="🔍 Product, shop, service খুঁজুন..."
     oninput="searchItems()">
-
 </header>
-
 
 <main>
 
-  <section class="hero">
+<section class="hero">
+  <h1>সবকিছু কাছাকাছি 🛍️</h1>
+  <p>
+    Shopping, Food, Repairing, Services, Workers,
+    Jobs, Used Items ও Local Shops — সব এক জায়গায়।
+  </p>
 
-    <h1>সবকিছু কাছাকাছি 🛍️</h1>
-
-    <p>
-      Dakshin Dinajpur-এর Local Marketplace।
-      Shopping, Used Items, Food, Repair, Services ও Jobs।
-    </p>
-
-    <button
-      class="primary"
-      onclick="openAuth()">
-      Join Near Market
-    </button>
-
-  </section>
+  <button class="primary" onclick="openAuth()">
+    Join Near Market
+  </button>
+</section>
 
 
-  <h2>Categories</h2>
+<h2>Categories</h2>
 
-  <div class="grid">
+<div class="grid">
 
-    <button class="cat" onclick="showCategory('Shopping')">
-      <span>🛍️</span>
-      Shopping
-    </button>
+<button class="cat" onclick="showCategory('Shopping')">
+<span>🛍️</span>Shopping
+</button>
 
-    <button class="cat" onclick="showCategory('Used')">
-      <span>♻️</span>
-      Used Items
-    </button>
+<button class="cat" onclick="showCategory('Used')">
+<span>♻️</span>Used Items
+</button>
 
-    <button class="cat" onclick="showCategory('Food')">
-      <span>🍔</span>
-      Food
-    </button>
+<button class="cat" onclick="showCategory('Food')">
+<span>🍔</span>Food
+</button>
 
-    <button class="cat" onclick="showCategory('Repair')">
-      <span>🔧</span>
-      Repair
-    </button>
+<button class="cat" onclick="showCategory('Repair')">
+<span>🔧</span>Repair
+</button>
 
-    <button class="cat" onclick="showCategory('Service')">
-      <span>👨‍🔧</span>
-      Service
-    </button>
+<button class="cat" onclick="showCategory('Service')">
+<span>👨‍🔧</span>Service
+</button>
 
-    <button class="cat" onclick="showCategory('Workers')">
-      <span>👷</span>
-      Workers
-    </button>
+<button class="cat" onclick="showCategory('Workers')">
+<span>👷</span>Workers
+</button>
 
-    <button class="cat" onclick="showCategory('Jobs')">
-      <span>💼</span>
-      Jobs
-    </button>
+<button class="cat" onclick="showCategory('Jobs')">
+<span>💼</span>Jobs
+</button>
 
-    <button class="cat" onclick="showCategory('Shops')">
-      <span>🏪</span>
-      Shops
-    </button>
+<button class="cat" onclick="showCategory('Shops')">
+<span>🏪</span>Shops
+</button>
 
-  </div>
+</div>
 
 
-  <!-- USER PROFILE -->
+<!-- USER PROFILE -->
 
-  <div
-    id="profileSection"
-    class="card hidden">
+<div id="profileSection" class="card hidden">
 
-    <h2>👤 My Profile</h2>
+<h2>👤 My Profile</h2>
 
-    <div
-      id="userEmail"
-      class="status">
-    </div>
+<div id="userEmail" class="status"></div>
 
-    <input
-      id="fullName"
-      placeholder="আপনার নাম">
+<input id="fullName" placeholder="আপনার নাম">
+<input id="phone" placeholder="Mobile number">
+<input id="area" placeholder="Area / Village">
+<input id="address" placeholder="Full address">
+<input id="pincode" placeholder="Pincode">
 
-    <input
-      id="phone"
-      placeholder="Mobile number">
+<div class="actions">
+<button class="primary" onclick="saveProfile()">Save Profile</button>
+<button class="secondary" onclick="showAddressForm()">📍 Delivery Address</button>
+<button class="secondary" onclick="openSeller()">🏪 Seller Center</button>
+<button onclick="showMyOrders()">📦 My Orders</button>
+<button onclick="logout()">Logout</button>
+</div>
 
-    <input
-      id="area"
-      placeholder="Area / Village">
+<div id="profileMessage" class="message"></div>
 
-    <input
-      id="address"
-      placeholder="Full address">
-
-    <input
-      id="pincode"
-      placeholder="Pincode">
-
-    <div class="profile-actions">
-
-      <button
-        class="primary"
-        onclick="saveProfile()">
-        Save Profile
-      </button>
-
-      <button
-        class="secondary"
-        onclick="openSeller()">
-        🏪 Become a Seller
-      </button>
-
-      <button
-        onclick="logout()">
-        Logout
-      </button>
-
-    </div>
-
-    <div
-      id="profileMessage"
-      class="message">
-    </div>
-
-  </div>
+</div>
 
 
-  <!-- SELLER -->
+<!-- SELLER CENTER -->
 
-  <div
-    id="sellerSection"
-    class="card hidden">
+<div id="sellerSection" class="card hidden">
 
-    <h2>🏪 Seller Center</h2>
+<h2>🏪 Seller Center</h2>
 
-    <p>
-      আপনার দোকান খুলে product/service বিক্রি করুন।
-    </p>
+<p class="muted">
+দোকান, product অথবা local service এখানে add করুন।
+</p>
 
-    <input
-      id="shopName"
-      placeholder="Shop name">
+<input id="shopName" placeholder="Shop / Business name">
 
-    <input
-      id="shopPhone"
-      placeholder="Shop mobile number">
+<select id="shopCategory">
+<option value="">Business category</option>
+<option>Shopping</option>
+<option>Food</option>
+<option>Repair</option>
+<option>Service</option>
+<option>Workers</option>
+<option>Jobs</option>
+<option>Used Items</option>
+<option>Other</option>
+</select>
 
-    <input
-      id="shopArea"
-      placeholder="Shop area">
+<input id="shopPhone" placeholder="Shop mobile number">
+<input id="shopArea" placeholder="Area">
+<input id="shopBlock" placeholder="Block">
+<input id="shopAddress" placeholder="Shop full address">
+<input id="shopPincode" placeholder="Pincode">
 
-    <input
-      id="shopDescription"
-      placeholder="Shop description">
+<textarea id="shopDescription"
+placeholder="Shop / business description"></textarea>
 
-    <button
-      class="primary"
-      onclick="saveSeller()">
-      Save Shop
-    </button>
+<button class="primary" onclick="saveSeller()">
+💾 Save Shop
+</button>
 
-    <div
-      id="sellerMessage"
-      class="message">
-    </div>
+<div id="sellerMessage" class="message"></div>
 
-  </div>
+<hr>
+
+<h3>➕ Add Product / Service</h3>
+
+<input
+  id="productName"
+  placeholder="Product / Service name">
+
+<select id="productCategory">
+<option value="">Category select করুন</option>
+<option>Shopping</option>
+<option>Used</option>
+<option>Food</option>
+<option>Repair</option>
+<option>Service</option>
+<option>Workers</option>
+<option>Jobs</option>
+</select>
+
+<select id="productType">
+<option value="product">Product</option>
+<option value="service">Service</option>
+<option value="job">Job</option>
+<option value="worker">Worker</option>
+</select>
+
+<input
+  id="productPrice"
+  type="number"
+  min="0"
+  placeholder="Price / Starting price">
+
+<input
+  id="productStock"
+  type="number"
+  min="0"
+  value="1"
+  placeholder="Stock">
+
+<textarea
+  id="productDescription"
+  placeholder="Product / service description"></textarea>
+
+<input
+  id="productImage"
+  type="file"
+  accept="image/*">
+
+<div id="imageStatus" class="muted"></div>
+
+<button class="primary" onclick="saveProduct()">
+➕ Add Product / Service
+</button>
+
+<div id="productMessage" class="message"></div>
+
+<hr>
+
+<h3>📦 My Listings</h3>
+<div id="sellerProducts"></div>
+
+</div>
 
 
-  <!-- MARKET LISTINGS -->
+<!-- ADDRESS -->
 
-  <div
-    id="items"
-    class="card">
+<div id="addressSection" class="card hidden">
 
-    <h2 id="itemsTitle">
-      Near Market
-    </h2>
+<h2>📍 Delivery Addresses</h2>
 
-    <p id="itemsText">
-      আপনার এলাকার product ও service এখানে দেখানো হবে।
-    </p>
+<input id="addressName" placeholder="Receiver name">
+<input id="addressPhone" placeholder="Phone">
 
-    <div id="listingArea"></div>
+<input id="addressDistrict"
+value="Dakshin Dinajpur"
+placeholder="District">
 
-  </div>
+<input id="addressBlock" placeholder="Block">
+<input id="addressArea" placeholder="Area / Village">
+
+<textarea
+id="addressFull"
+placeholder="Full delivery address"></textarea>
+
+<input id="addressPin" placeholder="Pincode">
+
+<label>
+<input
+  id="addressDefault"
+  type="checkbox"
+  style="width:auto">
+ Make this default address
+</label>
+
+<div class="actions">
+<button class="primary" onclick="saveAddress()">
+Save Address
+</button>
+
+<button onclick="loadAddresses()">
+Refresh
+</button>
+</div>
+
+<div id="addressMessage" class="message"></div>
+
+<div id="addressList"></div>
+
+</div>
 
 
-  <div class="card">
+<!-- MARKET -->
 
-    <h2>💵 Cash on Delivery</h2>
+<div id="items" class="card">
 
-    <p>
-      Product order করার সময় Cash on Delivery
-      নির্বাচন করা যাবে।
-    </p>
+<h2 id="itemsTitle">Near Market</h2>
 
-  </div>
+<p id="itemsText">
+আপনার এলাকার product ও service এখানে দেখানো হবে।
+</p>
+
+<div id="listingArea"></div>
+
+</div>
+
+
+<!-- CART -->
+
+<div id="cartSection" class="card hidden">
+
+<h2>🛒 My Cart</h2>
+
+<div id="cartArea"></div>
+
+<div class="cart-total" id="cartTotal"></div>
+
+<div class="actions">
+<button class="primary" onclick="openCheckout()">
+Proceed to Order
+</button>
+
+<button class="danger" onclick="clearCart()">
+Clear Cart
+</button>
+</div>
+
+</div>
+
+
+<!-- ORDERS -->
+
+<div id="ordersSection" class="card hidden">
+
+<h2>📦 My Orders</h2>
+
+<div id="ordersArea"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>💵 Cash on Delivery</h2>
+
+<p>
+Near Market-এ COD order করা যাবে।
+</p>
+
+</div>
 
 </main>
 
 
-<!-- AUTH MODAL -->
+<!-- AUTH -->
 
-<div
-  id="authModal"
-  class="modal">
+<div id="authModal" class="modal">
 
-  <div class="box">
+<div class="box">
 
-    <button
-      class="close"
-      onclick="closeAuth()">
-      ✕
-    </button>
+<button class="close" onclick="closeAuth()">✕</button>
 
-    <h2 id="authTitle">
-      Login
-    </h2>
+<h2>Login / Signup</h2>
 
-    <input
-      id="email"
-      type="email"
-      placeholder="Email">
+<input
+id="email"
+type="email"
+placeholder="Email">
 
-    <input
-      id="password"
-      type="password"
-      placeholder="Password">
+<input
+id="password"
+type="password"
+placeholder="Password">
 
-    <button
-      id="loginButton"
-      class="primary"
-      onclick="login()">
-      Login
-    </button>
+<div class="actions">
 
-    <button
-      id="signupButton"
-      class="secondary"
-      onclick="signup()">
-      Create Account
-    </button>
+<button
+class="primary"
+onclick="login()">
+Login
+</button>
 
-    <div
-      id="message"
-      class="message">
-    </div>
+<button
+class="secondary"
+onclick="signup()">
+Create Account
+</button>
 
-  </div>
+</div>
 
+<div id="message" class="message"></div>
+
+</div>
+</div>
+
+
+<!-- CHECKOUT -->
+
+<div id="checkoutModal" class="modal">
+
+<div class="box">
+
+<button class="close" onclick="closeCheckout()">✕</button>
+
+<h2>📦 Confirm Order</h2>
+
+<div id="checkoutSummary"></div>
+
+<h3>Delivery Address</h3>
+
+<div id="checkoutAddresses"></div>
+
+<h3>Payment</h3>
+
+<select id="paymentMethod">
+<option value="COD">Cash on Delivery</option>
+</select>
+
+<button
+class="primary"
+onclick="placeOrder()">
+✅ Place Order
+</button>
+
+<div id="checkoutMessage" class="message"></div>
+
+</div>
 </div>
 
 
 <script>
 
-/* =========================================
-   SUPABASE CONNECTION
-   ========================================= */
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
 "https://jbyuvpbywdyqugjcsrtj.supabase.co";
 
-/*
-  এখানে তোমার নতুন PUBLISHABLE KEY বসাবে।
-
-  Example:
-  "sb_publishable_xxxxxxxxx"
-
-  SECRET KEY এখানে কখনো বসাবে না।
-*/
-
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_6CQkH8Bz9_4PkBbwxPGU0w_aoj7VBJb";
-
 
 const supabaseClient =
 window.supabase.createClient(
@@ -517,160 +628,129 @@ window.supabase.createClient(
 );
 
 
-/* =========================================
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+let currentUser = null;
+let currentSeller = null;
+
+let cart =
+JSON.parse(
+  localStorage.getItem("near_market_cart") || "[]"
+);
+
+
+/* =====================================================
    AUTH MODAL
-   ========================================= */
+===================================================== */
 
 function openAuth(){
-
-  document
-    .getElementById("authModal")
-    .style.display="flex";
+  document.getElementById("authModal").style.display="flex";
 }
 
 function closeAuth(){
-
-  document
-    .getElementById("authModal")
-    .style.display="none";
+  document.getElementById("authModal").style.display="none";
 }
 
 
-/* =========================================
+/* =====================================================
    SIGNUP
-   ========================================= */
+===================================================== */
 
 async function signup(){
 
   const email =
-    document
-      .getElementById("email")
-      .value
-      .trim();
+    document.getElementById("email").value.trim();
 
   const password =
-    document
-      .getElementById("password")
-      .value;
+    document.getElementById("password").value;
 
   const message =
-    document
-      .getElementById("message");
+    document.getElementById("message");
 
   message.innerText="";
 
   if(!email || !password){
-
-    message.innerText =
-      "Email এবং password দিন।";
-
+    message.innerText="Email এবং password দিন।";
     return;
   }
 
   if(password.length < 6){
-
-    message.innerText =
+    message.innerText=
       "Password কমপক্ষে 6 characters হতে হবে।";
-
     return;
   }
 
   const {data,error} =
     await supabaseClient.auth.signUp({
-
-      email:email,
-
-      password:password
-
+      email,
+      password
     });
 
   if(error){
-
-    message.innerText =
-      "❌ " + error.message;
-
+    message.innerText="❌ "+error.message;
     return;
   }
 
   if(data.session){
-
-    message.innerText =
-      "✅ Account তৈরি হয়েছে এবং Login হয়েছে।";
-
     closeAuth();
-
-    await loadProfile();
-
+    await loadUser();
   }else{
-
-    message.innerText =
-      "✅ Account তৈরি হয়েছে। আপনার email check করে verification করুন।";
-
+    message.innerText=
+      "✅ Account তৈরি হয়েছে। Email verification করুন।";
   }
 }
 
 
-/* =========================================
+/* =====================================================
    LOGIN
-   ========================================= */
+===================================================== */
 
 async function login(){
 
   const email =
-    document
-      .getElementById("email")
-      .value
-      .trim();
+    document.getElementById("email").value.trim();
 
   const password =
-    document
-      .getElementById("password")
-      .value;
+    document.getElementById("password").value;
 
   const message =
-    document
-      .getElementById("message");
-
-  message.innerText="";
+    document.getElementById("message");
 
   if(!email || !password){
-
-    message.innerText =
+    message.innerText=
       "Email এবং password দিন।";
-
     return;
   }
 
   const {error} =
     await supabaseClient.auth.signInWithPassword({
-
-      email:email,
-
-      password:password
-
+      email,
+      password
     });
 
   if(error){
-
-    message.innerText =
-      "❌ " + error.message;
-
+    message.innerText="❌ "+error.message;
     return;
   }
 
   closeAuth();
 
-  await loadProfile();
+  await loadUser();
 }
 
 
-/* =========================================
+/* =====================================================
    LOGOUT
-   ========================================= */
+===================================================== */
 
 async function logout(){
 
   await supabaseClient.auth.signOut();
+
+  currentUser=null;
+  currentSeller=null;
 
   document
     .getElementById("profileSection")
@@ -681,31 +761,37 @@ async function logout(){
     .classList.add("hidden");
 
   document
+    .getElementById("addressSection")
+    .classList.add("hidden");
+
+  document
+    .getElementById("ordersSection")
+    .classList.add("hidden");
+
+  document
     .getElementById("authButton")
     .innerText="Login";
 }
 
 
-/* =========================================
-   LOAD PROFILE
-   ========================================= */
+/* =====================================================
+   LOAD USER
+===================================================== */
 
-async function loadProfile(){
+async function loadUser(){
 
   const {
     data:{user}
   } =
   await supabaseClient.auth.getUser();
 
-  if(!user){
+  if(!user) return;
 
-    return;
-  }
+  currentUser=user;
 
   document
     .getElementById("profileSection")
-    .classList
-    .remove("hidden");
+    .classList.remove("hidden");
 
   document
     .getElementById("authButton")
@@ -713,8 +799,7 @@ async function loadProfile(){
 
   document
     .getElementById("userEmail")
-    .innerText =
-      "📧 " + user.email;
+    .innerText="📧 "+user.email;
 
 
   const {data,error} =
@@ -724,149 +809,95 @@ async function loadProfile(){
       .eq("id",user.id)
       .maybeSingle();
 
+  if(!error && data){
 
-  if(error){
+    document.getElementById("fullName").value =
+      data.full_name || "";
 
-    console.log(
-      "Profile read error:",
-      error.message
-    );
+    document.getElementById("phone").value =
+      data.phone || "";
 
-    return;
-  }
+    document.getElementById("area").value =
+      data.area || "";
 
+    document.getElementById("address").value =
+      data.address || "";
 
-  if(data){
-
-    document
-      .getElementById("fullName")
-      .value =
-        data.full_name || "";
-
-    document
-      .getElementById("phone")
-      .value =
-        data.phone || "";
-
-    document
-      .getElementById("area")
-      .value =
-        data.area || "";
-
-    document
-      .getElementById("address")
-      .value =
-        data.address || "";
-
-    document
-      .getElementById("pincode")
-      .value =
-        data.pincode || "";
+    document.getElementById("pincode").value =
+      data.pincode || "";
   }
 
   await loadSeller(user.id);
+  await loadAddresses();
+  await loadSellerProducts();
+
+  renderCart();
 }
 
 
-/* =========================================
-   SAVE PROFILE
-   ========================================= */
+/* =====================================================
+   PROFILE
+===================================================== */
 
 async function saveProfile(){
 
-  const {
-    data:{user}
-  } =
-  await supabaseClient.auth.getUser();
-
-  if(!user){
-
+  if(!currentUser){
     alert("আগে Login করুন।");
-
     return;
   }
 
+  const profile={
 
-  const profile = {
-
-    id:user.id,
+    id:currentUser.id,
 
     full_name:
-      document
-        .getElementById("fullName")
-        .value
-        .trim(),
+      document.getElementById("fullName").value.trim(),
 
     phone:
-      document
-        .getElementById("phone")
-        .value
-        .trim(),
+      document.getElementById("phone").value.trim(),
 
-    email:user.email,
+    email:
+      currentUser.email,
 
     district:
       "Dakshin Dinajpur",
 
     area:
-      document
-        .getElementById("area")
-        .value
-        .trim(),
+      document.getElementById("area").value.trim(),
 
     address:
-      document
-        .getElementById("address")
-        .value
-        .trim(),
+      document.getElementById("address").value.trim(),
 
     pincode:
-      document
-        .getElementById("pincode")
-        .value
-        .trim()
-
+      document.getElementById("pincode").value.trim()
   };
-
 
   const {error} =
     await supabaseClient
       .from("profiles")
-      .upsert(
-        profile,
-        {onConflict:"id"}
-      );
+      .upsert(profile,{onConflict:"id"});
 
-
-  const message =
-    document
-      .getElementById("profileMessage");
-
-
-  if(error){
-
-    message.innerText =
-      "❌ " + error.message;
-
-  }else{
-
-    message.innerText =
-      "✅ Profile saved successfully.";
-
-  }
+  document.getElementById("profileMessage").innerText =
+    error
+      ? "❌ "+error.message
+      : "✅ Profile saved successfully.";
 }
 
 
-/* =========================================
+/* =====================================================
    SELLER
-   ========================================= */
+===================================================== */
 
 function openSeller(){
 
+  if(!currentUser){
+    openAuth();
+    return;
+  }
+
   document
     .getElementById("sellerSection")
-    .classList
-    .remove("hidden");
+    .classList.remove("hidden");
 
   document
     .getElementById("sellerSection")
@@ -885,407 +916,226 @@ async function loadSeller(userId){
       .eq("user_id",userId)
       .maybeSingle();
 
-
   if(error){
-
-    console.log(
-      "Seller check:",
-      error.message
-    );
-
+    console.log("Seller:",error.message);
     return;
   }
 
+  if(!data) return;
 
-  if(data){
+  currentSeller=data;
 
-    document
-      .getElementById("sellerSection")
-      .classList
-      .remove("hidden");
+  document
+    .getElementById("sellerSection")
+    .classList.remove("hidden");
 
-    document
-      .getElementById("shopName")
-      .value =
-        data.shop_name || "";
+  document.getElementById("shopName").value =
+    data.shop_name || "";
 
-    document
-      .getElementById("shopPhone")
-      .value =
-        data.phone || "";
+  document.getElementById("shopCategory").value =
+    data.category || "";
 
-    document
-      .getElementById("shopArea")
-      .value =
-        data.area || "";
+  document.getElementById("shopPhone").value =
+    data.phone || "";
 
-    document
-      .getElementById("shopDescription")
-      .value =
-        data.description || "";
-  }
+  document.getElementById("shopArea").value =
+    data.area || "";
+
+  document.getElementById("shopBlock").value =
+    data.block_name || "";
+
+  document.getElementById("shopAddress").value =
+    data.address || "";
+
+  document.getElementById("shopPincode").value =
+    data.pincode || "";
+
+  document.getElementById("shopDescription").value =
+    data.description || "";
 }
 
 
+/*
+  Important:
+  এখানে upsert ব্যবহার করা হয়নি।
+  আগে user_id দিয়ে seller খোঁজা হচ্ছে।
+  থাকলে UPDATE, না থাকলে INSERT।
+  তাই user_id unique constraint না থাকলেও
+  আগের ON CONFLICT error হবে না।
+*/
+
 async function saveSeller(){
 
-  const {
-    data:{user}
-  } =
-  await supabaseClient.auth.getUser();
-
-  if(!user){
-
+  if(!currentUser){
     alert("আগে Login করুন।");
-
     return;
   }
 
+  const message =
+    document.getElementById("sellerMessage");
 
   const shopName =
-    document
-      .getElementById("shopName")
-      .value
-      .trim();
-
+    document.getElementById("shopName").value.trim();
 
   if(!shopName){
-
-    document
-      .getElementById("sellerMessage")
-      .innerText =
-        "Shop name দিন।";
-
+    message.innerText="Shop name দিন।";
     return;
   }
 
+  const sellerData={
 
-  const seller = {
-
-    user_id:user.id,
+    user_id:currentUser.id,
 
     shop_name:shopName,
 
+    category:
+      document.getElementById("shopCategory").value,
+
     phone:
-      document
-        .getElementById("shopPhone")
-        .value
-        .trim(),
+      document.getElementById("shopPhone").value.trim(),
 
     area:
-      document
-        .getElementById("shopArea")
-        .value
-        .trim(),
+      document.getElementById("shopArea").value.trim(),
+
+    block_name:
+      document.getElementById("shopBlock").value.trim(),
+
+    address:
+      document.getElementById("shopAddress").value.trim(),
+
+    pincode:
+      document.getElementById("shopPincode").value.trim(),
 
     description:
-      document
-        .getElementById("shopDescription")
-        .value
-        .trim()
-
+      document.getElementById("shopDescription").value.trim()
   };
+
+
+  const {data:existing,error:findError} =
+    await supabaseClient
+      .from("sellers")
+      .select("id")
+      .eq("user_id",currentUser.id)
+      .maybeSingle();
+
+
+  if(findError){
+    message.innerText=
+      "❌ "+findError.message;
+    return;
+  }
+
+
+  let result;
+
+  if(existing){
+
+    result =
+      await supabaseClient
+        .from("sellers")
+        .update(sellerData)
+        .eq("id",existing.id);
+
+  }else{
+
+    result =
+      await supabaseClient
+        .from("sellers")
+        .insert(sellerData);
+  }
+
+
+  if(result.error){
+
+    message.innerText=
+      "❌ "+result.error.message;
+
+    return;
+  }
+
+  message.innerText=
+    "✅ Shop saved successfully.";
+
+  await loadSeller(currentUser.id);
+  await loadSellerProducts();
+}
+
+
+/* =====================================================
+   PRODUCT IMAGE UPLOAD
+===================================================== */
+
+async function uploadProductImage(file){
+
+  if(!file) return null;
+
+  if(!currentUser){
+    throw new Error("আগে Login করুন।");
+  }
+
+  const extension =
+    file.name.split(".").pop().toLowerCase();
+
+  const fileName =
+    currentUser.id +
+    "/" +
+    Date.now() +
+    "-" +
+    Math.random().toString(36).slice(2) +
+    "." +
+    extension;
 
 
   const {error} =
     await supabaseClient
-      .from("sellers")
-      .upsert(
-        seller,
-        {onConflict:"user_id"}
+      .storage
+      .from("product-images")
+      .upload(
+        fileName,
+        file,
+        {
+          cacheControl:"3600",
+          upsert:false
+        }
       );
+
+
+  if(error){
+    throw error;
+  }
+
+
+  const {data} =
+    supabaseClient
+      .storage
+      .from("product-images")
+      .getPublicUrl(fileName);
+
+
+  return data.publicUrl;
+}
+
+
+/* =====================================================
+   ADD PRODUCT / SERVICE
+===================================================== */
+
+async function saveProduct(){
+
+  if(!currentUser){
+    alert("আগে Login করুন।");
+    return;
+  }
+
+  if(!currentSeller){
+    alert("আগে Shop Save করুন।");
+    openSeller();
+    return;
+  }
 
 
   const message =
-    document
-      .getElementById("sellerMessage");
+    document.getElementById("productMessage");
 
-
-  if(error){
-
-    message.innerText =
-      "❌ " + error.message;
-
-  }else{
-
-    message.innerText =
-      "✅ Shop saved successfully.";
-
-  }
-}
-
-
-/* =========================================
-   CATEGORY
-   ========================================= */
-
-function showCategory(category){
-
-  document
-    .getElementById("itemsTitle")
-    .innerText =
-      category;
-
-  document
-    .getElementById("itemsText")
-    .innerText =
-      category +
-      " category-এর listings এখানে দেখানো হবে।";
-
-  loadProducts(category);
-}
-
-
-/* =========================================
-   LOAD PRODUCTS
-   ========================================= */
-
-async function loadProducts(category=null){
-
-  let query =
-    supabaseClient
-      .from("products")
-      .select("*")
-      .limit(30);
-
-
-  /*
-    Product table-এর exact column এখনো
-    নিশ্চিত না হওয়া পর্যন্ত category filter
-    সরাসরি database query-তে দিচ্ছি না।
-  */
-
-  const {data,error} =
-    await query;
-
-
-  const area =
-    document
-      .getElementById("listingArea");
-
-
-  if(error){
-
-    console.log(
-      "Products:",
-      error.message
-    );
-
-    area.innerHTML =
-      "<p>Products loading হবে।</p>";
-
-    return;
-  }
-
-
-  if(!data || data.length===0){
-
-    area.innerHTML =
-      "<p>এখনও কোনো product listed হয়নি।</p>";
-
-    return;
-  }
-
-
-  area.innerHTML =
-    data.map(product => {
-
-      const name =
-        product.name ||
-        product.title ||
-        "Product";
-
-      const price =
-        product.price != null
-        ? "₹" + product.price
-        : "Price unavailable";
-
-
-      return `
-        <div class="listing">
-          <strong>${escapeHtml(name)}</strong>
-          <br>
-          <span>${escapeHtml(price)}</span>
-        </div>
-      `;
-
-    }).join("");
-}
-
-
-/* =========================================
-   SEARCH
-   ========================================= */
-
-async function searchItems(){
-
-  const value =
-    document
-      .getElementById("searchBox")
-      .value
-      .trim()
-      .toLowerCase();
-
-
-  if(!value){
-
-    document
-      .getElementById("itemsTitle")
-      .innerText =
-        "Near Market";
-
-    document
-      .getElementById("itemsText")
-      .innerText =
-        "আপনার এলাকার product ও service এখানে দেখানো হবে।";
-
-    await loadProducts();
-
-    return;
-  }
-
-
-  document
-    .getElementById("itemsTitle")
-    .innerText =
-      "Search: " + value;
-
-  document
-    .getElementById("itemsText")
-    .innerText =
-      "Searching...";
-
-
-  const {data,error} =
-    await supabaseClient
-      .from("products")
-      .select("*")
-      .limit(50);
-
-
-  const area =
-    document
-      .getElementById("listingArea");
-
-
-  if(error){
-
-    area.innerHTML =
-      "<p>Search করা যাচ্ছে না।</p>";
-
-    return;
-  }
-
-
-  const results =
-    (data || []).filter(product => {
-
-      const text =
-        JSON.stringify(product)
-          .toLowerCase();
-
-      return text.includes(value);
-
-    });
-
-
-  if(results.length===0){
-
-    area.innerHTML =
-      "<p>কোনো product পাওয়া যায়নি।</p>";
-
-    return;
-  }
-
-
-  area.innerHTML =
-    results.map(product => {
-
-      const name =
-        product.name ||
-        product.title ||
-        "Product";
-
-      const price =
-        product.price != null
-        ? "₹" + product.price
-        : "Price unavailable";
-
-
-      return `
-        <div class="listing">
-          <strong>${escapeHtml(name)}</strong>
-          <br>
-          <span>${escapeHtml(price)}</span>
-        </div>
-      `;
-
-    }).join("");
-}
-
-
-/* =========================================
-   SECURITY: HTML ESCAPE
-   ========================================= */
-
-function escapeHtml(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-
-/* =========================================
-   SESSION
-   ========================================= */
-
-supabaseClient.auth.onAuthStateChange(
-  (event,session)=>{
-
-    if(session){
-
-      setTimeout(
-        () => loadProfile(),
-        0
-      );
-
-    }else{
-
-      document
-        .getElementById("profileSection")
-        .classList
-        .add("hidden");
-
-      document
-        .getElementById("sellerSection")
-        .classList
-        .add("hidden");
-
-      document
-        .getElementById("authButton")
-        .innerText =
-          "Login";
-    }
-
-  }
-);
-
-
-/* =========================================
-   INITIAL LOAD
-   ========================================= */
-
-(async function(){
-
-  await loadProducts();
-
-})();
-
-</script>
-
-</body>
-  </html>
+  message.innerText="";
+  
