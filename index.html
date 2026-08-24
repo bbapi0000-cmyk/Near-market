@@ -1,146 +1,211 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Near Market - South Dinajpur</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Near Market - South Dinajpur</title>
 
-  <style>
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Arial,sans-serif;
-      background:#f5f7fb;
-      color:#172033
-    }
-    header{
-      background:white;
-      padding:15px;
-      position:sticky;
-      top:0;
-      z-index:10;
-      box-shadow:0 2px 10px #0001
-    }
-    .top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between
-    }
-    .logo{
-      font-size:25px;
-      font-weight:800;
-      color:#1769e0
-    }
-    .location{
-      font-size:12px;
-      color:#777;
-      margin-top:3px
-    }
-    button{
-      border:0;
-      border-radius:10px;
-      padding:11px 15px;
-      cursor:pointer;
-      font-size:14px
-    }
-    .primary{
-      background:#1769e0;
-      color:white
-    }
-    .search{
-      width:100%;
-      margin-top:12px;
-      padding:13px;
-      border:1px solid #ddd;
-      border-radius:10px;
-      font-size:15px
-    }
-    main{
-      max-width:1000px;
-      margin:auto;
-      padding:16px
-    }
-    .hero{
-      background:#1769e0;
-      color:white;
-      padding:25px;
-      border-radius:20px;
-      margin-bottom:20px
-    }
-    .hero h1{margin:0 0 8px}
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:10px
-    }
-    .cat{
-      background:white;
-      box-shadow:0 2px 8px #0001;
-      padding:15px 5px;
-      text-align:center
-    }
-    .cat span{
-      display:block;
-      font-size:27px;
-      margin-bottom:6px
-    }
-    .card{
-      background:white;
-      padding:18px;
-      border-radius:15px;
-      margin-top:18px;
-      box-shadow:0 2px 8px #0001
-    }
-    .modal{
-      display:none;
-      position:fixed;
-      inset:0;
-      background:#0008;
-      z-index:100;
-      align-items:center;
-      justify-content:center;
-      padding:15px
-    }
-    .box{
-      width:100%;
-      max-width:420px;
-      background:white;
-      border-radius:18px;
-      padding:20px
-    }
-    input,select{
-      width:100%;
-      padding:12px;
-      margin:7px 0;
-      border:1px solid #ddd;
-      border-radius:9px;
-      font-size:15px
-    }
-    .close{
-      float:right;
-      background:#eee
-    }
-    .hidden{display:none}
-    .message{
-      margin-top:10px;
-      font-size:14px
-    }
-    .category-title{
-      margin-top:25px
-    }
-    @media(max-width:600px){
-      .grid{grid-template-columns:repeat(4,1fr)}
-      .cat{font-size:11px}
-      .cat span{font-size:23px}
-    }
-  </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f7fb;
+  color:#172033
+}
+
+header{
+  background:#fff;
+  padding:15px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  box-shadow:0 2px 10px #0001
+}
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px
+}
+
+.logo{
+  font-size:25px;
+  font-weight:800;
+  color:#1769e0
+}
+
+.location{
+  font-size:12px;
+  color:#777;
+  margin-top:3px
+}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:11px 15px;
+  cursor:pointer;
+  font-size:14px
+}
+
+.primary{
+  background:#1769e0;
+  color:#fff
+}
+
+.secondary{
+  background:#eef3ff;
+  color:#1769e0
+}
+
+.search{
+  width:100%;
+  margin-top:12px;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:15px
+}
+
+main{
+  max-width:1000px;
+  margin:auto;
+  padding:16px
+}
+
+.hero{
+  background:#1769e0;
+  color:white;
+  padding:25px;
+  border-radius:20px;
+  margin-bottom:20px
+}
+
+.hero h1{
+  margin:0 0 8px
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px
+}
+
+.cat{
+  background:white;
+  box-shadow:0 2px 8px #0001;
+  padding:15px 5px;
+  text-align:center
+}
+
+.cat span{
+  display:block;
+  font-size:27px;
+  margin-bottom:6px
+}
+
+.card{
+  background:white;
+  padding:18px;
+  border-radius:15px;
+  margin-top:18px;
+  box-shadow:0 2px 8px #0001
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0008;
+  z-index:100;
+  align-items:center;
+  justify-content:center;
+  padding:15px
+}
+
+.box{
+  width:100%;
+  max-width:420px;
+  background:white;
+  border-radius:18px;
+  padding:20px
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin:7px 0;
+  border:1px solid #ddd;
+  border-radius:9px;
+  font-size:15px
+}
+
+.close{
+  float:right;
+  background:#eee
+}
+
+.hidden{
+  display:none
+}
+
+.message{
+  margin-top:10px;
+  font-size:14px
+}
+
+.status{
+  padding:10px;
+  border-radius:10px;
+  background:#f0f5ff;
+  margin-top:10px;
+  font-size:14px
+}
+
+.profile-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:10px
+}
+
+.listing{
+  border:1px solid #eee;
+  border-radius:12px;
+  padding:12px;
+  margin-top:10px
+}
+
+@media(max-width:600px){
+  .grid{
+    grid-template-columns:repeat(4,1fr)
+  }
+
+  .cat{
+    font-size:11px
+  }
+
+  .cat span{
+    font-size:23px
+  }
+
+  .logo{
+    font-size:21px
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
+
   <div class="top">
 
     <div>
@@ -148,7 +213,10 @@
       <div class="location">📍 Dakshin Dinajpur</div>
     </div>
 
-    <button id="authButton" class="primary" onclick="openAuth()">
+    <button
+      id="authButton"
+      class="primary"
+      onclick="openAuth()">
       Login
     </button>
 
@@ -159,14 +227,15 @@
     class="search"
     type="search"
     placeholder="🔍 Product, shop, service খুঁজুন..."
-    oninput="searchItems()"
-  >
+    oninput="searchItems()">
+
 </header>
 
 
 <main>
 
   <section class="hero">
+
     <h1>সবকিছু কাছাকাছি 🛍️</h1>
 
     <p>
@@ -174,9 +243,12 @@
       Shopping, Used Items, Food, Repair, Services ও Jobs।
     </p>
 
-    <button class="primary" onclick="openAuth()">
+    <button
+      class="primary"
+      onclick="openAuth()">
       Join Near Market
     </button>
+
   </section>
 
 
@@ -227,40 +299,125 @@
   </div>
 
 
-  <div id="profileSection" class="card hidden">
+  <!-- USER PROFILE -->
+
+  <div
+    id="profileSection"
+    class="card hidden">
 
     <h2>👤 My Profile</h2>
 
-    <input id="fullName" placeholder="আপনার নাম">
+    <div
+      id="userEmail"
+      class="status">
+    </div>
 
-    <input id="phone" placeholder="Mobile number">
+    <input
+      id="fullName"
+      placeholder="আপনার নাম">
 
-    <input id="area" placeholder="Area / Village">
+    <input
+      id="phone"
+      placeholder="Mobile number">
 
-    <input id="address" placeholder="Full address">
+    <input
+      id="area"
+      placeholder="Area / Village">
 
-    <input id="pincode" placeholder="Pincode">
+    <input
+      id="address"
+      placeholder="Full address">
 
-    <button class="primary" onclick="saveProfile()">
-      Save Profile
-    </button>
+    <input
+      id="pincode"
+      placeholder="Pincode">
 
-    <button onclick="logout()">
-      Logout
-    </button>
+    <div class="profile-actions">
 
-    <div id="profileMessage" class="message"></div>
+      <button
+        class="primary"
+        onclick="saveProfile()">
+        Save Profile
+      </button>
+
+      <button
+        class="secondary"
+        onclick="openSeller()">
+        🏪 Become a Seller
+      </button>
+
+      <button
+        onclick="logout()">
+        Logout
+      </button>
+
+    </div>
+
+    <div
+      id="profileMessage"
+      class="message">
+    </div>
 
   </div>
 
 
-  <div id="items" class="card">
+  <!-- SELLER -->
 
-    <h2 id="itemsTitle">Near Market</h2>
+  <div
+    id="sellerSection"
+    class="card hidden">
+
+    <h2>🏪 Seller Center</h2>
+
+    <p>
+      আপনার দোকান খুলে product/service বিক্রি করুন।
+    </p>
+
+    <input
+      id="shopName"
+      placeholder="Shop name">
+
+    <input
+      id="shopPhone"
+      placeholder="Shop mobile number">
+
+    <input
+      id="shopArea"
+      placeholder="Shop area">
+
+    <input
+      id="shopDescription"
+      placeholder="Shop description">
+
+    <button
+      class="primary"
+      onclick="saveSeller()">
+      Save Shop
+    </button>
+
+    <div
+      id="sellerMessage"
+      class="message">
+    </div>
+
+  </div>
+
+
+  <!-- MARKET LISTINGS -->
+
+  <div
+    id="items"
+    class="card">
+
+    <h2 id="itemsTitle">
+      Near Market
+    </h2>
 
     <p id="itemsText">
       আপনার এলাকার product ও service এখানে দেখানো হবে।
     </p>
+
+    <div id="listingArea"></div>
 
   </div>
 
@@ -270,7 +427,8 @@
     <h2>💵 Cash on Delivery</h2>
 
     <p>
-      Product order করার সময় Cash on Delivery নির্বাচন করা যাবে।
+      Product order করার সময় Cash on Delivery
+      নির্বাচন করা যাবে।
     </p>
 
   </div>
@@ -278,44 +436,52 @@
 </main>
 
 
-<!-- LOGIN / SIGNUP -->
+<!-- AUTH MODAL -->
 
-<div id="authModal" class="modal">
+<div
+  id="authModal"
+  class="modal">
 
   <div class="box">
 
-    <button class="close" onclick="closeAuth()">✕</button>
+    <button
+      class="close"
+      onclick="closeAuth()">
+      ✕
+    </button>
 
-    <h2 id="authTitle">Login</h2>
+    <h2 id="authTitle">
+      Login
+    </h2>
 
     <input
       id="email"
       type="email"
-      placeholder="Email"
-    >
+      placeholder="Email">
 
     <input
       id="password"
       type="password"
-      placeholder="Password"
-    >
+      placeholder="Password">
 
     <button
       id="loginButton"
       class="primary"
-      onclick="login()"
-    >
+      onclick="login()">
       Login
     </button>
 
     <button
       id="signupButton"
-      onclick="signup()"
-    >
+      class="secondary"
+      onclick="signup()">
       Create Account
     </button>
 
-    <div id="message" class="message"></div>
+    <div
+      id="message"
+      class="message">
+    </div>
 
   </div>
 
@@ -325,14 +491,24 @@
 <script>
 
 /* =========================================
-   SUPABASE
+   SUPABASE CONNECTION
    ========================================= */
 
 const SUPABASE_URL =
 "https://jbyuvpbywdyqugjcsrtj.supabase.co";
 
+/*
+  এখানে তোমার নতুন PUBLISHABLE KEY বসাবে।
+
+  Example:
+  "sb_publishable_xxxxxxxxx"
+
+  SECRET KEY এখানে কখনো বসাবে না।
+*/
+
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_6CQkH8Bz9_4PkBbwxPGU0w_aoj7VBJb";
+
 
 const supabaseClient =
 window.supabase.createClient(
@@ -342,28 +518,46 @@ window.supabase.createClient(
 
 
 /* =========================================
-   AUTH
+   AUTH MODAL
    ========================================= */
 
 function openAuth(){
-  document.getElementById("authModal").style.display="flex";
+
+  document
+    .getElementById("authModal")
+    .style.display="flex";
 }
 
 function closeAuth(){
-  document.getElementById("authModal").style.display="none";
+
+  document
+    .getElementById("authModal")
+    .style.display="none";
 }
 
+
+/* =========================================
+   SIGNUP
+   ========================================= */
 
 async function signup(){
 
   const email =
-    document.getElementById("email").value.trim();
+    document
+      .getElementById("email")
+      .value
+      .trim();
 
   const password =
-    document.getElementById("password").value;
+    document
+      .getElementById("password")
+      .value;
 
   const message =
-    document.getElementById("message");
+    document
+      .getElementById("message");
+
+  message.innerText="";
 
   if(!email || !password){
 
@@ -381,46 +575,85 @@ async function signup(){
     return;
   }
 
-  const {error} =
+  const {data,error} =
     await supabaseClient.auth.signUp({
+
       email:email,
+
       password:password
+
     });
 
   if(error){
 
     message.innerText =
-      error.message;
+      "❌ " + error.message;
 
     return;
   }
 
-  message.innerText =
-    "✅ Account তৈরি হয়েছে। Email verification করুন।";
+  if(data.session){
+
+    message.innerText =
+      "✅ Account তৈরি হয়েছে এবং Login হয়েছে।";
+
+    closeAuth();
+
+    await loadProfile();
+
+  }else{
+
+    message.innerText =
+      "✅ Account তৈরি হয়েছে। আপনার email check করে verification করুন।";
+
+  }
 }
 
+
+/* =========================================
+   LOGIN
+   ========================================= */
 
 async function login(){
 
   const email =
-    document.getElementById("email").value.trim();
+    document
+      .getElementById("email")
+      .value
+      .trim();
 
   const password =
-    document.getElementById("password").value;
+    document
+      .getElementById("password")
+      .value;
 
   const message =
-    document.getElementById("message");
+    document
+      .getElementById("message");
+
+  message.innerText="";
+
+  if(!email || !password){
+
+    message.innerText =
+      "Email এবং password দিন।";
+
+    return;
+  }
 
   const {error} =
     await supabaseClient.auth.signInWithPassword({
+
       email:email,
+
       password:password
+
     });
 
   if(error){
 
     message.innerText =
-      error.message;
+      "❌ " + error.message;
 
     return;
   }
@@ -444,13 +677,17 @@ async function logout(){
     .classList.add("hidden");
 
   document
+    .getElementById("sellerSection")
+    .classList.add("hidden");
+
+  document
     .getElementById("authButton")
     .innerText="Login";
 }
 
 
 /* =========================================
-   PROFILE
+   LOAD PROFILE
    ========================================= */
 
 async function loadProfile(){
@@ -460,18 +697,27 @@ async function loadProfile(){
   } =
   await supabaseClient.auth.getUser();
 
-  if(!user) return;
+  if(!user){
+
+    return;
+  }
 
   document
     .getElementById("profileSection")
-    .classList.remove("hidden");
+    .classList
+    .remove("hidden");
 
   document
     .getElementById("authButton")
     .innerText="My Profile";
 
+  document
+    .getElementById("userEmail")
+    .innerText =
+      "📧 " + user.email;
 
-  const {data} =
+
+  const {data,error} =
     await supabaseClient
       .from("profiles")
       .select("*")
@@ -479,23 +725,46 @@ async function loadProfile(){
       .maybeSingle();
 
 
+  if(error){
+
+    console.log(
+      "Profile read error:",
+      error.message
+    );
+
+    return;
+  }
+
+
   if(data){
 
-    document.getElementById("fullName").value =
-      data.full_name || "";
+    document
+      .getElementById("fullName")
+      .value =
+        data.full_name || "";
 
-    document.getElementById("phone").value =
-      data.phone || "";
+    document
+      .getElementById("phone")
+      .value =
+        data.phone || "";
 
-    document.getElementById("area").value =
-      data.area || "";
+    document
+      .getElementById("area")
+      .value =
+        data.area || "";
 
-    document.getElementById("address").value =
-      data.address || "";
+    document
+      .getElementById("address")
+      .value =
+        data.address || "";
 
-    document.getElementById("pincode").value =
-      data.pincode || "";
+    document
+      .getElementById("pincode")
+      .value =
+        data.pincode || "";
   }
+
+  await loadSeller(user.id);
 }
 
 
@@ -523,36 +792,55 @@ async function saveProfile(){
     id:user.id,
 
     full_name:
-      document.getElementById("fullName").value,
+      document
+        .getElementById("fullName")
+        .value
+        .trim(),
 
     phone:
-      document.getElementById("phone").value,
+      document
+        .getElementById("phone")
+        .value
+        .trim(),
 
-    email:
-      user.email,
+    email:user.email,
 
     district:
       "Dakshin Dinajpur",
 
     area:
-      document.getElementById("area").value,
+      document
+        .getElementById("area")
+        .value
+        .trim(),
 
     address:
-      document.getElementById("address").value,
+      document
+        .getElementById("address")
+        .value
+        .trim(),
 
     pincode:
-      document.getElementById("pincode").value
+      document
+        .getElementById("pincode")
+        .value
+        .trim()
+
   };
 
 
   const {error} =
     await supabaseClient
       .from("profiles")
-      .upsert(profile);
+      .upsert(
+        profile,
+        {onConflict:"id"}
+      );
 
 
   const message =
-    document.getElementById("profileMessage");
+    document
+      .getElementById("profileMessage");
 
 
   if(error){
@@ -570,17 +858,258 @@ async function saveProfile(){
 
 
 /* =========================================
+   SELLER
+   ========================================= */
+
+function openSeller(){
+
+  document
+    .getElementById("sellerSection")
+    .classList
+    .remove("hidden");
+
+  document
+    .getElementById("sellerSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+}
+
+
+async function loadSeller(userId){
+
+  const {data,error} =
+    await supabaseClient
+      .from("sellers")
+      .select("*")
+      .eq("user_id",userId)
+      .maybeSingle();
+
+
+  if(error){
+
+    console.log(
+      "Seller check:",
+      error.message
+    );
+
+    return;
+  }
+
+
+  if(data){
+
+    document
+      .getElementById("sellerSection")
+      .classList
+      .remove("hidden");
+
+    document
+      .getElementById("shopName")
+      .value =
+        data.shop_name || "";
+
+    document
+      .getElementById("shopPhone")
+      .value =
+        data.phone || "";
+
+    document
+      .getElementById("shopArea")
+      .value =
+        data.area || "";
+
+    document
+      .getElementById("shopDescription")
+      .value =
+        data.description || "";
+  }
+}
+
+
+async function saveSeller(){
+
+  const {
+    data:{user}
+  } =
+  await supabaseClient.auth.getUser();
+
+  if(!user){
+
+    alert("আগে Login করুন।");
+
+    return;
+  }
+
+
+  const shopName =
+    document
+      .getElementById("shopName")
+      .value
+      .trim();
+
+
+  if(!shopName){
+
+    document
+      .getElementById("sellerMessage")
+      .innerText =
+        "Shop name দিন।";
+
+    return;
+  }
+
+
+  const seller = {
+
+    user_id:user.id,
+
+    shop_name:shopName,
+
+    phone:
+      document
+        .getElementById("shopPhone")
+        .value
+        .trim(),
+
+    area:
+      document
+        .getElementById("shopArea")
+        .value
+        .trim(),
+
+    description:
+      document
+        .getElementById("shopDescription")
+        .value
+        .trim()
+
+  };
+
+
+  const {error} =
+    await supabaseClient
+      .from("sellers")
+      .upsert(
+        seller,
+        {onConflict:"user_id"}
+      );
+
+
+  const message =
+    document
+      .getElementById("sellerMessage");
+
+
+  if(error){
+
+    message.innerText =
+      "❌ " + error.message;
+
+  }else{
+
+    message.innerText =
+      "✅ Shop saved successfully.";
+
+  }
+}
+
+
+/* =========================================
    CATEGORY
    ========================================= */
 
 function showCategory(category){
 
-  document.getElementById("itemsTitle").innerText =
-    category;
+  document
+    .getElementById("itemsTitle")
+    .innerText =
+      category;
 
-  document.getElementById("itemsText").innerText =
-    category +
-    " category-এর local listings এখানে আসবে।";
+  document
+    .getElementById("itemsText")
+    .innerText =
+      category +
+      " category-এর listings এখানে দেখানো হবে।";
+
+  loadProducts(category);
+}
+
+
+/* =========================================
+   LOAD PRODUCTS
+   ========================================= */
+
+async function loadProducts(category=null){
+
+  let query =
+    supabaseClient
+      .from("products")
+      .select("*")
+      .limit(30);
+
+
+  /*
+    Product table-এর exact column এখনো
+    নিশ্চিত না হওয়া পর্যন্ত category filter
+    সরাসরি database query-তে দিচ্ছি না।
+  */
+
+  const {data,error} =
+    await query;
+
+
+  const area =
+    document
+      .getElementById("listingArea");
+
+
+  if(error){
+
+    console.log(
+      "Products:",
+      error.message
+    );
+
+    area.innerHTML =
+      "<p>Products loading হবে।</p>";
+
+    return;
+  }
+
+
+  if(!data || data.length===0){
+
+    area.innerHTML =
+      "<p>এখনও কোনো product listed হয়নি।</p>";
+
+    return;
+  }
+
+
+  area.innerHTML =
+    data.map(product => {
+
+      const name =
+        product.name ||
+        product.title ||
+        "Product";
+
+      const price =
+        product.price != null
+        ? "₹" + product.price
+        : "Price unavailable";
+
+
+      return `
+        <div class="listing">
+          <strong>${escapeHtml(name)}</strong>
+          <br>
+          <span>${escapeHtml(price)}</span>
+        </div>
+      `;
+
+    }).join("");
 }
 
 
@@ -588,33 +1117,130 @@ function showCategory(category){
    SEARCH
    ========================================= */
 
-function searchItems(){
+async function searchItems(){
 
   const value =
-    document.getElementById("searchBox").value
-      .trim();
+    document
+      .getElementById("searchBox")
+      .value
+      .trim()
+      .toLowerCase();
 
-  if(value){
 
-    document.getElementById("itemsTitle").innerText =
+  if(!value){
+
+    document
+      .getElementById("itemsTitle")
+      .innerText =
+        "Near Market";
+
+    document
+      .getElementById("itemsText")
+      .innerText =
+        "আপনার এলাকার product ও service এখানে দেখানো হবে।";
+
+    await loadProducts();
+
+    return;
+  }
+
+
+  document
+    .getElementById("itemsTitle")
+    .innerText =
       "Search: " + value;
 
-    document.getElementById("itemsText").innerText =
-      "এই search-এর products/services এখানে দেখানো হবে।";
+  document
+    .getElementById("itemsText")
+    .innerText =
+      "Searching...";
 
-  }else{
 
-    document.getElementById("itemsTitle").innerText =
-      "Near Market";
+  const {data,error} =
+    await supabaseClient
+      .from("products")
+      .select("*")
+      .limit(50);
 
-    document.getElementById("itemsText").innerText =
-      "আপনার এলাকার product ও service এখানে দেখানো হবে.";
+
+  const area =
+    document
+      .getElementById("listingArea");
+
+
+  if(error){
+
+    area.innerHTML =
+      "<p>Search করা যাচ্ছে না।</p>";
+
+    return;
   }
+
+
+  const results =
+    (data || []).filter(product => {
+
+      const text =
+        JSON.stringify(product)
+          .toLowerCase();
+
+      return text.includes(value);
+
+    });
+
+
+  if(results.length===0){
+
+    area.innerHTML =
+      "<p>কোনো product পাওয়া যায়নি।</p>";
+
+    return;
+  }
+
+
+  area.innerHTML =
+    results.map(product => {
+
+      const name =
+        product.name ||
+        product.title ||
+        "Product";
+
+      const price =
+        product.price != null
+        ? "₹" + product.price
+        : "Price unavailable";
+
+
+      return `
+        <div class="listing">
+          <strong>${escapeHtml(name)}</strong>
+          <br>
+          <span>${escapeHtml(price)}</span>
+        </div>
+      `;
+
+    }).join("");
 }
 
 
 /* =========================================
-   SESSION CHECK
+   SECURITY: HTML ESCAPE
+   ========================================= */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+/* =========================================
+   SESSION
    ========================================= */
 
 supabaseClient.auth.onAuthStateChange(
@@ -622,12 +1248,42 @@ supabaseClient.auth.onAuthStateChange(
 
     if(session){
 
-      loadProfile();
+      setTimeout(
+        () => loadProfile(),
+        0
+      );
 
+    }else{
+
+      document
+        .getElementById("profileSection")
+        .classList
+        .add("hidden");
+
+      document
+        .getElementById("sellerSection")
+        .classList
+        .add("hidden");
+
+      document
+        .getElementById("authButton")
+        .innerText =
+          "Login";
     }
 
   }
 );
+
+
+/* =========================================
+   INITIAL LOAD
+   ========================================= */
+
+(async function(){
+
+  await loadProducts();
+
+})();
 
 </script>
 
