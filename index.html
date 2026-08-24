@@ -2,202 +2,132 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Near Market</title>
 
-  <title>Near Market - South Dinajpur</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#f5f7fb;
+      color:#172033
     }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #172033;
+    header{
+      background:#fff;
+      padding:15px;
+      position:sticky;
+      top:0;
+      z-index:10;
+      box-shadow:0 2px 10px #0001
     }
-
-    header {
-      background: white;
-      padding: 15px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center
     }
-
-    .top {
-      max-width: 1000px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+    .logo{
+      font-size:25px;
+      font-weight:800;
+      color:#1769e0
     }
-
-    .logo {
-      font-size: 25px;
-      font-weight: 800;
-      color: #1769e0;
+    .location{
+      font-size:12px;
+      color:#777
     }
-
-    .location {
-      font-size: 12px;
-      color: #666;
+    button{
+      border:0;
+      border-radius:9px;
+      padding:10px 14px;
+      cursor:pointer
     }
-
-    .login {
-      background: #1769e0;
-      color: white;
-      border: 0;
-      padding: 9px 14px;
-      border-radius: 9px;
+    .primary{
+      background:#1769e0;
+      color:#fff
     }
-
-    .search {
-      width: 100%;
-      max-width: 1000px;
-      display: block;
-      margin: 13px auto 0;
-      padding: 14px;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      font-size: 16px;
+    .search{
+      width:100%;
+      margin-top:12px;
+      padding:13px;
+      border:1px solid #ddd;
+      border-radius:10px;
+      font-size:15px
     }
-
-    main {
-      max-width: 1000px;
-      margin: auto;
-      padding: 16px;
+    main{
+      max-width:1000px;
+      margin:auto;
+      padding:16px
     }
-
-    .hero {
-      background: #1769e0;
-      color: white;
-      padding: 25px;
-      border-radius: 20px;
-      margin-bottom: 20px;
+    .hero{
+      background:#1769e0;
+      color:white;
+      padding:24px;
+      border-radius:20px;
+      margin-bottom:20px
     }
-
-    .hero h1 {
-      font-size: 28px;
-      margin-bottom: 8px;
+    .hero h1{margin:0 0 8px}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px
     }
-
-    .hero p {
-      line-height: 1.5;
+    .cat{
+      background:#fff;
+      padding:15px 5px;
+      text-align:center;
+      box-shadow:0 2px 8px #0001
     }
-
-    .sell {
-      display: inline-block;
-      margin-top: 15px;
-      background: white;
-      color: #1769e0;
-      padding: 11px 16px;
-      border-radius: 10px;
-      font-weight: bold;
+    .cat span{
+      display:block;
+      font-size:26px;
+      margin-bottom:5px
     }
-
-    h2 {
-      margin: 22px 0 13px;
-      font-size: 20px;
+    .card{
+      background:#fff;
+      padding:18px;
+      border-radius:15px;
+      margin-top:15px;
+      box-shadow:0 2px 8px #0001
     }
-
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:#0008;
+      z-index:100;
+      align-items:center;
+      justify-content:center;
+      padding:15px
     }
-
-    .category {
-      background: white;
-      border: 0;
-      padding: 15px 5px;
-      border-radius: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.06);
-      font-size: 13px;
-      cursor: pointer;
+    .box{
+      width:100%;
+      max-width:420px;
+      background:#fff;
+      border-radius:18px;
+      padding:20px
     }
-
-    .category span {
-      display: block;
-      font-size: 27px;
-      margin-bottom: 7px;
+    input,select{
+      width:100%;
+      padding:12px;
+      margin:7px 0;
+      border:1px solid #ddd;
+      border-radius:9px
     }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+    .close{
+      float:right;
+      background:#eee
     }
-
-    .card {
-      background: white;
-      border-radius: 15px;
-      padding: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    .hidden{display:none}
+    #message{
+      margin-top:10px;
+      font-size:14px
     }
-
-    .image {
-      height: 130px;
-      background: #eef2f7;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 45px;
-    }
-
-    .card h3 {
-      margin-top: 10px;
-      font-size: 16px;
-    }
-
-    .price {
-      margin-top: 7px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .action {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 9px 13px;
-      background: #1769e0;
-      color: white;
-      border-radius: 9px;
-      border: 0;
-      text-decoration: none;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 30px 10px;
-      color: #777;
-    }
-
-    @media (max-width: 550px) {
-      .categories {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      .products {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .category {
-        font-size: 10px;
-      }
-
-      .category span {
-        font-size: 22px;
-      }
-
-      .hero h1 {
-        font-size: 23px;
-      }
+    @media(max-width:600px){
+      .grid{grid-template-columns:repeat(4,1fr)}
+      .cat{font-size:11px}
+      .cat span{font-size:22px}
     }
   </style>
 </head>
@@ -205,244 +135,426 @@
 <body>
 
 <header>
-
   <div class="top">
-
     <div>
       <div class="logo">Near Market</div>
       <div class="location">📍 South Dinajpur</div>
     </div>
 
-    <button class="login" onclick="login()">
-      Login / Register
+    <button id="authButton" class="primary" onclick="openAuth()">
+      Login
     </button>
-
   </div>
 
   <input
     class="search"
-    type="search"
-    placeholder="🔍 Product, shop, food, service খুঁজুন..."
-    oninput="searchItems(this.value)"
+    placeholder="🔍 Product, shop, service খুঁজুন..."
   >
-
 </header>
-
 
 <main>
 
   <section class="hero">
-
     <h1>সবকিছু কাছাকাছি</h1>
-
     <p>
-      South Dinajpur-এর নিজের Local Marketplace।
-      Shopping, Food, Used Products, Repair, Services ও Jobs—
-      সব এক জায়গায়।
+      South Dinajpur-এর Local Marketplace।
+      Shopping, Used Items, Food, Repair, Services ও Jobs।
     </p>
 
-    <a href="#" class="sell" onclick="sellNow()">
-      + Sell / Service Post করুন
-    </a>
-
+    <button class="primary" onclick="openAuth()">
+      Join Near Market
+    </button>
   </section>
-
 
   <h2>Categories</h2>
 
-  <div class="categories">
+  <div class="grid">
 
-    <button class="category" onclick="category('Shopping')">
-      <span>🛍️</span>
-      Shopping
+    <button class="cat">
+      <span>🛍️</span>Shopping
     </button>
 
-    <button class="category" onclick="category('Used')">
-      <span>♻️</span>
-      Used Items
+    <button class="cat">
+      <span>♻️</span>Used
     </button>
 
-    <button class="category" onclick="category('Food')">
-      <span>🍔</span>
-      Food
+    <button class="cat">
+      <span>🍔</span>Food
     </button>
 
-    <button class="category" onclick="category('Repair')">
-      <span>🔧</span>
-      Repair
+    <button class="cat">
+      <span>🔧</span>Repair
     </button>
 
-    <button class="category" onclick="category('Service')">
-      <span>👨‍🔧</span>
-      Services
+    <button class="cat">
+      <span>👨‍🔧</span>Service
     </button>
 
-    <button class="category" onclick="category('Workers')">
-      <span>👷</span>
-      Workers
+    <button class="cat">
+      <span>👷</span>Workers
     </button>
 
-    <button class="category" onclick="category('Jobs')">
-      <span>💼</span>
-      Jobs
+    <button class="cat">
+      <span>💼</span>Jobs
     </button>
 
-    <button class="category" onclick="category('Shops')">
-      <span>🏪</span>
-      Local Shops
+    <button class="cat">
+      <span>🏪</span>Shops
     </button>
 
   </div>
 
+  <div id="profileSection" class="card hidden">
+    <h2>👤 My Profile</h2>
 
-  <h2>Near You</h2>
+    <input id="fullName" placeholder="আপনার নাম">
 
-  <div class="products" id="products">
+    <input id="phone" placeholder="Mobile number">
 
-    <div class="card">
-      <div class="image">👕</div>
-      <h3>Clothing & Fashion</h3>
-      <div class="price">Shopping</div>
-      <button class="action" onclick="viewItem('Clothing')">
-        View
-      </button>
-    </div>
+    <input id="area" placeholder="Area / Village">
 
+    <input id="address" placeholder="Full address">
 
-    <div class="card">
-      <div class="image">📱</div>
-      <h3>Mobile & Electronics</h3>
-      <div class="price">New & Used</div>
-      <button class="action" onclick="viewItem('Mobile')">
-        View
-      </button>
-    </div>
+    <input id="pincode" placeholder="Pincode">
 
+    <button class="primary" onclick="saveProfile()">
+      Save Profile
+    </button>
 
-    <div class="card">
-      <div class="image">🔧</div>
-      <h3>Mobile Repair</h3>
-      <div class="price">Local Service</div>
-      <button class="action" onclick="viewItem('Repair')">
-        Contact
-      </button>
-    </div>
+    <button onclick="logout()">
+      Logout
+    </button>
 
-
-    <div class="card">
-      <div class="image">🍕</div>
-      <h3>Food & Restaurant</h3>
-      <div class="price">Order Nearby</div>
-      <button class="action" onclick="viewItem('Food')">
-        Explore
-      </button>
-    </div>
-
-
-    <div class="card">
-      <div class="image">🪑</div>
-      <h3>Used Furniture</h3>
-      <div class="price">Buy & Sell</div>
-      <button class="action" onclick="viewItem('Used Furniture')">
-        View
-      </button>
-    </div>
-
-
-    <div class="card">
-      <div class="image">👨‍🔧</div>
-      <h3>Electrician / Plumber</h3>
-      <div class="price">Home Service</div>
-      <button class="action" onclick="viewItem('Home Service')">
-        Contact
-      </button>
-    </div>
-
+    <div id="profileMessage"></div>
   </div>
-
-
-  <h2>💵 Cash on Delivery</h2>
 
   <div class="card">
+    <h2>💵 Cash on Delivery</h2>
     <p>
-      Near Market-এ product order করে
-      delivery-এর সময় Cash on Delivery দেওয়া যাবে।
+      Near Market-এ product order করে delivery-এর সময়
+      Cash on Delivery দেওয়া যাবে।
     </p>
-  </div>
-
-
-  <h2>🏪 আপনার ব্যবসা Near Market-এ আনুন</h2>
-
-  <div class="card">
-
-    <p>
-      দোকান, restaurant, service, product অথবা
-      পুরোনো জিনিস বিক্রির জন্য listing তৈরি করুন।
-    </p>
-
-    <button class="action" onclick="sellNow()">
-      Start Selling
-    </button>
-
   </div>
 
 </main>
 
 
-<div class="footer">
+<!-- AUTH MODAL -->
 
-  © 2026 Near Market  
-  <br>
-  South Dinajpur Local Marketplace
+<div id="authModal" class="modal">
+
+  <div class="box">
+
+    <button class="close" onclick="closeAuth()">✕</button>
+
+    <h2 id="authTitle">Login</h2>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Email"
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+    >
+
+    <button
+      id="loginBtn"
+      class="primary"
+      onclick="login()"
+    >
+      Login
+    </button>
+
+    <button
+      id="signupBtn"
+      onclick="signup()"
+    >
+      Create Account
+    </button>
+
+    <div id="message"></div>
+
+  </div>
 
 </div>
 
 
 <script>
 
-function login() {
-  alert(
-    "Buyer / Seller Login system production version-এ যুক্ত হবে।"
-  );
+/* ================================
+   SUPABASE CONFIG
+   ================================ */
+
+const SUPABASE_URL =
+"https://jbyuvpbywdyqugjcsrtj.supabase.co";
+
+/*
+  এখানে নিজের Supabase
+  PUBLISHABLE KEY বসাও।
+
+  Secret key কখনো এখানে দেবে না।
+*/
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_z22u79vz68l9OnIgotE3xg_OHzvvL86";
+
+
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+
+/* ================================
+   AUTH UI
+   ================================ */
+
+function openAuth(){
+  document.getElementById("authModal").style.display="flex";
 }
 
-function sellNow() {
-  alert(
-    "Seller registration ও product/service posting system তৈরি করা হবে।"
-  );
+function closeAuth(){
+  document.getElementById("authModal").style.display="none";
 }
 
-function category(name) {
-  alert(
-    name + " category selected"
-  );
+
+/* ================================
+   SIGN UP
+   ================================ */
+
+async function signup(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const message =
+    document.getElementById("message");
+
+  if(!email || !password){
+    message.innerText =
+      "Email এবং password দিন।";
+    return;
+  }
+
+  if(password.length < 6){
+    message.innerText =
+      "Password কমপক্ষে 6 characters হতে হবে।";
+    return;
+  }
+
+  const {data,error} =
+    await supabaseClient.auth.signUp({
+      email:email,
+      password:password
+    });
+
+  if(error){
+    message.innerText =
+      error.message;
+    return;
+  }
+
+  message.innerText =
+    "Account তৈরি হয়েছে। Email verification চাইলে email check করুন।";
+
 }
 
-function viewItem(name) {
-  alert(
-    name + " খুলতে হলে product database ও seller system connect করতে হবে।"
-  );
+
+/* ================================
+   LOGIN
+   ================================ */
+
+async function login(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const message =
+    document.getElementById("message");
+
+  const {data,error} =
+    await supabaseClient.auth.signInWithPassword({
+      email:email,
+      password:password
+    });
+
+  if(error){
+    message.innerText =
+      error.message;
+    return;
+  }
+
+  message.innerText =
+    "Login successful!";
+
+  closeAuth();
+
+  await loadProfile();
+
 }
 
-function searchItems(value) {
 
-  const cards = document.querySelectorAll(".card");
+/* ================================
+   LOGOUT
+   ================================ */
 
-  cards.forEach(card => {
+async function logout(){
 
-    const text =
-      card.innerText.toLowerCase();
+  await supabaseClient.auth.signOut();
 
-    card.style.display =
-      text.includes(value.toLowerCase())
-      ? "block"
-      : "none";
+  document
+    .getElementById("profileSection")
+    .classList.add("hidden");
 
-  });
+  document
+    .getElementById("authButton")
+    .innerText="Login";
 
 }
+
+
+/* ================================
+   PROFILE
+   ================================ */
+
+async function loadProfile(){
+
+  const {
+    data:{user}
+  } =
+  await supabaseClient.auth.getUser();
+
+  if(!user){
+    return;
+  }
+
+  document
+    .getElementById("profileSection")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("authButton")
+    .innerText="My Profile";
+
+  const {data,error} =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("id",user.id)
+      .maybeSingle();
+
+  if(data){
+
+    document.getElementById("fullName").value =
+      data.full_name || "";
+
+    document.getElementById("phone").value =
+      data.phone || "";
+
+    document.getElementById("area").value =
+      data.area || "";
+
+    document.getElementById("address").value =
+      data.address || "";
+
+    document.getElementById("pincode").value =
+      data.pincode || "";
+
+  }
+
+}
+
+
+/* ================================
+   SAVE PROFILE
+   ================================ */
+
+async function saveProfile(){
+
+  const {
+    data:{user}
+  } =
+  await supabaseClient.auth.getUser();
+
+  if(!user){
+    alert("আগে Login করুন।");
+    return;
+  }
+
+  const profile = {
+
+    id:user.id,
+
+    full_name:
+      document.getElementById("fullName").value,
+
+    phone:
+      document.getElementById("phone").value,
+
+    email:user.email,
+
+    district:"Dakshin Dinajpur",
+
+    area:
+      document.getElementById("area").value,
+
+    address:
+      document.getElementById("address").value,
+
+    pincode:
+      document.getElementById("pincode").value
+
+  };
+
+  const {error} =
+    await supabaseClient
+      .from("profiles")
+      .upsert(profile);
+
+  const msg =
+    document.getElementById("profileMessage");
+
+  if(error){
+
+    msg.innerText =
+      error.message;
+
+  }else{
+
+    msg.innerText =
+      "✅ Profile saved successfully.";
+
+  }
+
+}
+
+
+/* ================================
+   CHECK LOGIN ON START
+   ================================ */
+
+supabaseClient.auth.onAuthStateChange(
+  async (event,session)=>{
+
+    if(session){
+      await loadProfile();
+    }
+
+  }
+);
 
 </script>
 
 </body>
-</html>
+        </html>
