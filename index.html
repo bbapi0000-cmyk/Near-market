@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Near Market - South Dinajpur</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+    }
+
+    header {
+      background: white;
+      padding: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    }
+
+    .top {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      color: #1769e0;
+    }
+
+    .location {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .login {
+      background: #1769e0;
+      color: white;
+      border: 0;
+      padding: 9px 14px;
+      border-radius: 9px;
+    }
+
+    .search {
+      width: 100%;
+      max-width: 1000px;
+      display: block;
+      margin: 13px auto 0;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 16px;
+    }
+
+    .hero {
+      background: #1769e0;
+      color: white;
+      padding: 25px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      line-height: 1.5;
+    }
+
+    .sell {
+      display: inline-block;
+      margin-top: 15px;
+      background: white;
+      color: #1769e0;
+      padding: 11px 16px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    h2 {
+      margin: 22px 0 13px;
+      font-size: 20px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .category {
+      background: white;
+      border: 0;
+      padding: 15px 5px;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .category span {
+      display: block;
+      font-size: 27px;
+      margin-bottom: 7px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+
+    .image {
+      height: 130px;
+      background: #eef2f7;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 45px;
+    }
+
+    .card h3 {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    .price {
+      margin-top: 7px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .action {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 9px 13px;
+      background: #1769e0;
+      color: white;
+      border-radius: 9px;
+      border: 0;
+      text-decoration: none;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px 10px;
+      color: #777;
+    }
+
+    @media (max-width: 550px) {
+      .categories {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .products {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .category {
+        font-size: 10px;
+      }
+
+      .category span {
+        font-size: 22px;
+      }
+
+      .hero h1 {
+        font-size: 23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="top">
+
+    <div>
+      <div class="logo">Near Market</div>
+      <div class="location">📍 South Dinajpur</div>
+    </div>
+
+    <button class="login" onclick="login()">
+      Login / Register
+    </button>
+
+  </div>
+
+  <input
+    class="search"
+    type="search"
+    placeholder="🔍 Product, shop, food, service খুঁজুন..."
+    oninput="searchItems(this.value)"
+  >
+
+</header>
+
+
+<main>
+
+  <section class="hero">
+
+    <h1>সবকিছু কাছাকাছি</h1>
+
+    <p>
+      South Dinajpur-এর নিজের Local Marketplace।
+      Shopping, Food, Used Products, Repair, Services ও Jobs—
+      সব এক জায়গায়।
+    </p>
+
+    <a href="#" class="sell" onclick="sellNow()">
+      + Sell / Service Post করুন
+    </a>
+
+  </section>
+
+
+  <h2>Categories</h2>
+
+  <div class="categories">
+
+    <button class="category" onclick="category('Shopping')">
+      <span>🛍️</span>
+      Shopping
+    </button>
+
+    <button class="category" onclick="category('Used')">
+      <span>♻️</span>
+      Used Items
+    </button>
+
+    <button class="category" onclick="category('Food')">
+      <span>🍔</span>
+      Food
+    </button>
+
+    <button class="category" onclick="category('Repair')">
+      <span>🔧</span>
+      Repair
+    </button>
+
+    <button class="category" onclick="category('Service')">
+      <span>👨‍🔧</span>
+      Services
+    </button>
+
+    <button class="category" onclick="category('Workers')">
+      <span>👷</span>
+      Workers
+    </button>
+
+    <button class="category" onclick="category('Jobs')">
+      <span>💼</span>
+      Jobs
+    </button>
+
+    <button class="category" onclick="category('Shops')">
+      <span>🏪</span>
+      Local Shops
+    </button>
+
+  </div>
+
+
+  <h2>Near You</h2>
+
+  <div class="products" id="products">
+
+    <div class="card">
+      <div class="image">👕</div>
+      <h3>Clothing & Fashion</h3>
+      <div class="price">Shopping</div>
+      <button class="action" onclick="viewItem('Clothing')">
+        View
+      </button>
+    </div>
+
+
+    <div class="card">
+      <div class="image">📱</div>
+      <h3>Mobile & Electronics</h3>
+      <div class="price">New & Used</div>
+      <button class="action" onclick="viewItem('Mobile')">
+        View
+      </button>
+    </div>
+
+
+    <div class="card">
+      <div class="image">🔧</div>
+      <h3>Mobile Repair</h3>
+      <div class="price">Local Service</div>
+      <button class="action" onclick="viewItem('Repair')">
+        Contact
+      </button>
+    </div>
+
+
+    <div class="card">
+      <div class="image">🍕</div>
+      <h3>Food & Restaurant</h3>
+      <div class="price">Order Nearby</div>
+      <button class="action" onclick="viewItem('Food')">
+        Explore
+      </button>
+    </div>
+
+
+    <div class="card">
+      <div class="image">🪑</div>
+      <h3>Used Furniture</h3>
+      <div class="price">Buy & Sell</div>
+      <button class="action" onclick="viewItem('Used Furniture')">
+        View
+      </button>
+    </div>
+
+
+    <div class="card">
+      <div class="image">👨‍🔧</div>
+      <h3>Electrician / Plumber</h3>
+      <div class="price">Home Service</div>
+      <button class="action" onclick="viewItem('Home Service')">
+        Contact
+      </button>
+    </div>
+
+  </div>
+
+
+  <h2>💵 Cash on Delivery</h2>
+
+  <div class="card">
+    <p>
+      Near Market-এ product order করে
+      delivery-এর সময় Cash on Delivery দেওয়া যাবে।
+    </p>
+  </div>
+
+
+  <h2>🏪 আপনার ব্যবসা Near Market-এ আনুন</h2>
+
+  <div class="card">
+
+    <p>
+      দোকান, restaurant, service, product অথবা
+      পুরোনো জিনিস বিক্রির জন্য listing তৈরি করুন।
+    </p>
+
+    <button class="action" onclick="sellNow()">
+      Start Selling
+    </button>
+
+  </div>
+
+</main>
+
+
+<div class="footer">
+
+  © 2026 Near Market  
+  <br>
+  South Dinajpur Local Marketplace
+
+</div>
+
+
+<script>
+
+function login() {
+  alert(
+    "Buyer / Seller Login system production version-এ যুক্ত হবে।"
+  );
+}
+
+function sellNow() {
+  alert(
+    "Seller registration ও product/service posting system তৈরি করা হবে।"
+  );
+}
+
+function category(name) {
+  alert(
+    name + " category selected"
+  );
+}
+
+function viewItem(name) {
+  alert(
+    name + " খুলতে হলে product database ও seller system connect করতে হবে।"
+  );
+}
+
+function searchItems(value) {
+
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+
+    const text =
+      card.innerText.toLowerCase();
+
+    card.style.display =
+      text.includes(value.toLowerCase())
+      ? "block"
+      : "none";
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
