@@ -2,8 +2,8 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Near Market</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Near Market - South Dinajpur</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -16,7 +16,7 @@
       color:#172033
     }
     header{
-      background:#fff;
+      background:white;
       padding:15px;
       position:sticky;
       top:0;
@@ -25,8 +25,8 @@
     }
     .top{
       display:flex;
-      justify-content:space-between;
-      align-items:center
+      align-items:center;
+      justify-content:space-between
     }
     .logo{
       font-size:25px;
@@ -35,17 +35,19 @@
     }
     .location{
       font-size:12px;
-      color:#777
+      color:#777;
+      margin-top:3px
     }
     button{
       border:0;
-      border-radius:9px;
-      padding:10px 14px;
-      cursor:pointer
+      border-radius:10px;
+      padding:11px 15px;
+      cursor:pointer;
+      font-size:14px
     }
     .primary{
       background:#1769e0;
-      color:#fff
+      color:white
     }
     .search{
       width:100%;
@@ -63,7 +65,7 @@
     .hero{
       background:#1769e0;
       color:white;
-      padding:24px;
+      padding:25px;
       border-radius:20px;
       margin-bottom:20px
     }
@@ -74,21 +76,21 @@
       gap:10px
     }
     .cat{
-      background:#fff;
+      background:white;
+      box-shadow:0 2px 8px #0001;
       padding:15px 5px;
-      text-align:center;
-      box-shadow:0 2px 8px #0001
+      text-align:center
     }
     .cat span{
       display:block;
-      font-size:26px;
-      margin-bottom:5px
+      font-size:27px;
+      margin-bottom:6px
     }
     .card{
-      background:#fff;
+      background:white;
       padding:18px;
       border-radius:15px;
-      margin-top:15px;
+      margin-top:18px;
       box-shadow:0 2px 8px #0001
     }
     .modal{
@@ -104,7 +106,7 @@
     .box{
       width:100%;
       max-width:420px;
-      background:#fff;
+      background:white;
       border-radius:18px;
       padding:20px
     }
@@ -113,21 +115,25 @@
       padding:12px;
       margin:7px 0;
       border:1px solid #ddd;
-      border-radius:9px
+      border-radius:9px;
+      font-size:15px
     }
     .close{
       float:right;
       background:#eee
     }
     .hidden{display:none}
-    #message{
+    .message{
       margin-top:10px;
       font-size:14px
+    }
+    .category-title{
+      margin-top:25px
     }
     @media(max-width:600px){
       .grid{grid-template-columns:repeat(4,1fr)}
       .cat{font-size:11px}
-      .cat span{font-size:22px}
+      .cat span{font-size:23px}
     }
   </style>
 </head>
@@ -136,28 +142,35 @@
 
 <header>
   <div class="top">
+
     <div>
       <div class="logo">Near Market</div>
-      <div class="location">📍 South Dinajpur</div>
+      <div class="location">📍 Dakshin Dinajpur</div>
     </div>
 
     <button id="authButton" class="primary" onclick="openAuth()">
       Login
     </button>
+
   </div>
 
   <input
+    id="searchBox"
     class="search"
+    type="search"
     placeholder="🔍 Product, shop, service খুঁজুন..."
+    oninput="searchItems()"
   >
 </header>
+
 
 <main>
 
   <section class="hero">
-    <h1>সবকিছু কাছাকাছি</h1>
+    <h1>সবকিছু কাছাকাছি 🛍️</h1>
+
     <p>
-      South Dinajpur-এর Local Marketplace।
+      Dakshin Dinajpur-এর Local Marketplace।
       Shopping, Used Items, Food, Repair, Services ও Jobs।
     </p>
 
@@ -166,45 +179,56 @@
     </button>
   </section>
 
+
   <h2>Categories</h2>
 
   <div class="grid">
 
-    <button class="cat">
-      <span>🛍️</span>Shopping
+    <button class="cat" onclick="showCategory('Shopping')">
+      <span>🛍️</span>
+      Shopping
     </button>
 
-    <button class="cat">
-      <span>♻️</span>Used
+    <button class="cat" onclick="showCategory('Used')">
+      <span>♻️</span>
+      Used Items
     </button>
 
-    <button class="cat">
-      <span>🍔</span>Food
+    <button class="cat" onclick="showCategory('Food')">
+      <span>🍔</span>
+      Food
     </button>
 
-    <button class="cat">
-      <span>🔧</span>Repair
+    <button class="cat" onclick="showCategory('Repair')">
+      <span>🔧</span>
+      Repair
     </button>
 
-    <button class="cat">
-      <span>👨‍🔧</span>Service
+    <button class="cat" onclick="showCategory('Service')">
+      <span>👨‍🔧</span>
+      Service
     </button>
 
-    <button class="cat">
-      <span>👷</span>Workers
+    <button class="cat" onclick="showCategory('Workers')">
+      <span>👷</span>
+      Workers
     </button>
 
-    <button class="cat">
-      <span>💼</span>Jobs
+    <button class="cat" onclick="showCategory('Jobs')">
+      <span>💼</span>
+      Jobs
     </button>
 
-    <button class="cat">
-      <span>🏪</span>Shops
+    <button class="cat" onclick="showCategory('Shops')">
+      <span>🏪</span>
+      Shops
     </button>
 
   </div>
 
+
   <div id="profileSection" class="card hidden">
+
     <h2>👤 My Profile</h2>
 
     <input id="fullName" placeholder="আপনার নাম">
@@ -225,21 +249,36 @@
       Logout
     </button>
 
-    <div id="profileMessage"></div>
+    <div id="profileMessage" class="message"></div>
+
   </div>
 
-  <div class="card">
-    <h2>💵 Cash on Delivery</h2>
-    <p>
-      Near Market-এ product order করে delivery-এর সময়
-      Cash on Delivery দেওয়া যাবে।
+
+  <div id="items" class="card">
+
+    <h2 id="itemsTitle">Near Market</h2>
+
+    <p id="itemsText">
+      আপনার এলাকার product ও service এখানে দেখানো হবে।
     </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>💵 Cash on Delivery</h2>
+
+    <p>
+      Product order করার সময় Cash on Delivery নির্বাচন করা যাবে।
+    </p>
+
   </div>
 
 </main>
 
 
-<!-- AUTH MODAL -->
+<!-- LOGIN / SIGNUP -->
 
 <div id="authModal" class="modal">
 
@@ -262,7 +301,7 @@
     >
 
     <button
-      id="loginBtn"
+      id="loginButton"
       class="primary"
       onclick="login()"
     >
@@ -270,13 +309,13 @@
     </button>
 
     <button
-      id="signupBtn"
+      id="signupButton"
       onclick="signup()"
     >
       Create Account
     </button>
 
-    <div id="message"></div>
+    <div id="message" class="message"></div>
 
   </div>
 
@@ -285,23 +324,15 @@
 
 <script>
 
-/* ================================
-   SUPABASE CONFIG
-   ================================ */
+/* =========================================
+   SUPABASE
+   ========================================= */
 
 const SUPABASE_URL =
 "https://jbyuvpbywdyqugjcsrtj.supabase.co";
 
-/*
-  এখানে নিজের Supabase
-  PUBLISHABLE KEY বসাও।
-
-  Secret key কখনো এখানে দেবে না।
-*/
-
 const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_z22u79vz68l9OnIgotE3xg_OHzvvL86";
-
+"sb_publishable_6CQkH8Bz9_4PkBbwxPGU0w_aoj7VBJb";
 
 const supabaseClient =
 window.supabase.createClient(
@@ -310,9 +341,9 @@ window.supabase.createClient(
 );
 
 
-/* ================================
-   AUTH UI
-   ================================ */
+/* =========================================
+   AUTH
+   ========================================= */
 
 function openAuth(){
   document.getElementById("authModal").style.display="flex";
@@ -322,10 +353,6 @@ function closeAuth(){
   document.getElementById("authModal").style.display="none";
 }
 
-
-/* ================================
-   SIGN UP
-   ================================ */
 
 async function signup(){
 
@@ -339,38 +366,39 @@ async function signup(){
     document.getElementById("message");
 
   if(!email || !password){
+
     message.innerText =
       "Email এবং password দিন।";
+
     return;
   }
 
   if(password.length < 6){
+
     message.innerText =
       "Password কমপক্ষে 6 characters হতে হবে।";
+
     return;
   }
 
-  const {data,error} =
+  const {error} =
     await supabaseClient.auth.signUp({
       email:email,
       password:password
     });
 
   if(error){
+
     message.innerText =
       error.message;
+
     return;
   }
 
   message.innerText =
-    "Account তৈরি হয়েছে। Email verification চাইলে email check করুন।";
-
+    "✅ Account তৈরি হয়েছে। Email verification করুন।";
 }
 
-
-/* ================================
-   LOGIN
-   ================================ */
 
 async function login(){
 
@@ -383,31 +411,29 @@ async function login(){
   const message =
     document.getElementById("message");
 
-  const {data,error} =
+  const {error} =
     await supabaseClient.auth.signInWithPassword({
       email:email,
       password:password
     });
 
   if(error){
+
     message.innerText =
       error.message;
+
     return;
   }
-
-  message.innerText =
-    "Login successful!";
 
   closeAuth();
 
   await loadProfile();
-
 }
 
 
-/* ================================
+/* =========================================
    LOGOUT
-   ================================ */
+   ========================================= */
 
 async function logout(){
 
@@ -420,13 +446,12 @@ async function logout(){
   document
     .getElementById("authButton")
     .innerText="Login";
-
 }
 
 
-/* ================================
+/* =========================================
    PROFILE
-   ================================ */
+   ========================================= */
 
 async function loadProfile(){
 
@@ -435,9 +460,7 @@ async function loadProfile(){
   } =
   await supabaseClient.auth.getUser();
 
-  if(!user){
-    return;
-  }
+  if(!user) return;
 
   document
     .getElementById("profileSection")
@@ -447,12 +470,14 @@ async function loadProfile(){
     .getElementById("authButton")
     .innerText="My Profile";
 
-  const {data,error} =
+
+  const {data} =
     await supabaseClient
       .from("profiles")
       .select("*")
       .eq("id",user.id)
       .maybeSingle();
+
 
   if(data){
 
@@ -470,15 +495,13 @@ async function loadProfile(){
 
     document.getElementById("pincode").value =
       data.pincode || "";
-
   }
-
 }
 
 
-/* ================================
+/* =========================================
    SAVE PROFILE
-   ================================ */
+   ========================================= */
 
 async function saveProfile(){
 
@@ -488,9 +511,12 @@ async function saveProfile(){
   await supabaseClient.auth.getUser();
 
   if(!user){
+
     alert("আগে Login করুন।");
+
     return;
   }
+
 
   const profile = {
 
@@ -502,9 +528,11 @@ async function saveProfile(){
     phone:
       document.getElementById("phone").value,
 
-    email:user.email,
+    email:
+      user.email,
 
-    district:"Dakshin Dinajpur",
+    district:
+      "Dakshin Dinajpur",
 
     area:
       document.getElementById("area").value,
@@ -514,41 +542,88 @@ async function saveProfile(){
 
     pincode:
       document.getElementById("pincode").value
-
   };
+
 
   const {error} =
     await supabaseClient
       .from("profiles")
       .upsert(profile);
 
-  const msg =
+
+  const message =
     document.getElementById("profileMessage");
+
 
   if(error){
 
-    msg.innerText =
-      error.message;
+    message.innerText =
+      "❌ " + error.message;
 
   }else{
 
-    msg.innerText =
+    message.innerText =
       "✅ Profile saved successfully.";
 
   }
-
 }
 
 
-/* ================================
-   CHECK LOGIN ON START
-   ================================ */
+/* =========================================
+   CATEGORY
+   ========================================= */
+
+function showCategory(category){
+
+  document.getElementById("itemsTitle").innerText =
+    category;
+
+  document.getElementById("itemsText").innerText =
+    category +
+    " category-এর local listings এখানে আসবে।";
+}
+
+
+/* =========================================
+   SEARCH
+   ========================================= */
+
+function searchItems(){
+
+  const value =
+    document.getElementById("searchBox").value
+      .trim();
+
+  if(value){
+
+    document.getElementById("itemsTitle").innerText =
+      "Search: " + value;
+
+    document.getElementById("itemsText").innerText =
+      "এই search-এর products/services এখানে দেখানো হবে।";
+
+  }else{
+
+    document.getElementById("itemsTitle").innerText =
+      "Near Market";
+
+    document.getElementById("itemsText").innerText =
+      "আপনার এলাকার product ও service এখানে দেখানো হবে.";
+  }
+}
+
+
+/* =========================================
+   SESSION CHECK
+   ========================================= */
 
 supabaseClient.auth.onAuthStateChange(
-  async (event,session)=>{
+  (event,session)=>{
 
     if(session){
-      await loadProfile();
+
+      loadProfile();
+
     }
 
   }
@@ -557,4 +632,4 @@ supabaseClient.auth.onAuthStateChange(
 </script>
 
 </body>
-        </html>
+  </html>
